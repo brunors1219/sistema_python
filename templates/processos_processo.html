@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista de Processos</h2>
+{% if processos %}
+  <ul class="lista">
+    {% for p in processos %}
+      <li>
+        <a href="/processo/{{ p._id }}">
+          <strong>{{ p.numero }}</strong><br>
+          Última atualização: {{ p.ultima_atualizacao.strftime("%d/%m/%Y %H:%M") }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Nenhum processo cadastrado.</p>
+{% endif %}
+{% endblock %}

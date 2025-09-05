@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalhes do Processo {{ processo.numero }}</h2>
+{% if processo.detalhes %}
+  <ul class="lista">
+    {% for d in processo.detalhes %}
+      <li>
+        <strong>{{ d.data.strftime("%d/%m/%Y %H:%M") }}</strong><br>
+        {{ d.descricao }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Sem descrições cadastradas.</p>
+{% endif %}
+
+<h3>Adicionar nova descrição</h3>
+<form action="/processo/{{ processo._id }}/add" method="post" class="form">
+  <textarea name="descricao" required></textarea>
+  <button type="submit">Adicionar</button>
+</form>
+{% endblock %}

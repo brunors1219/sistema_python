@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PWA Processos{% endblock %}</title>
+
+  <!-- Manifesto PWA -->
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#004080">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  {% if not hide_menu %}
+  <nav class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul id="menu" class="hidden">
+      <li><a href="/cadastro">Cadastro</a></li>
+      <li><a href="/processos">Processos</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+  {% endif %}
+
+  <main class="main-container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("hidden");
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/static/service-worker.js")
+        .then(() => console.log("✅ Service Worker registrado"))
+        .catch(err => console.error("❌ Erro no Service Worker", err));
+    }
+  </script>
+</body>
+</html>
